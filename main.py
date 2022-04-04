@@ -1,5 +1,7 @@
 from tinyec import registry
 import numpy as np
+from encrypt_decrypt import *
+
 
 def initialize_public_env():
     C = registry.get_curve('secp192r1')
@@ -8,6 +10,8 @@ def initialize_public_env():
 
 
 if __name__ == '__main__':
+
+    #Key exchange
     C = initialize_public_env()
 
     a_private_k = np.random.randint(1,100)
@@ -20,3 +24,13 @@ if __name__ == '__main__':
     bshared_k = a_public_k*b_private_k
 
     assert(ashared_k == bshared_k)
+
+
+
+    #Share messages
+    key_b = ashared_k.x.to_bytes(24, byteorder='big')
+    plaintext = "test 12312 "
+    ciphertext = encrypt(key_b,plaintext)
+
+
+    decrypt(key_b,ciphertext).decode('ascii')
