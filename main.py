@@ -24,13 +24,11 @@ if __name__ == '__main__':
     bshared_k = a_public_k*b_private_k
 
     assert(ashared_k == bshared_k)
-
-
-
     #Share messages
     key_b = ashared_k.x.to_bytes(24, byteorder='big')
     plaintext = "test 12312 "
-    ciphertext = encrypt(key_b,plaintext)
+    ciphertext,nonce = encrypt(key_b,plaintext)
 
+    plaintext_out = decrypt(key_b,ciphertext,nonce)
 
-    decrypt(key_b,ciphertext).decode('ascii')
+    assert(plaintext==plaintext_out)
