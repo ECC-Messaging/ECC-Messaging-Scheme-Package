@@ -13,11 +13,10 @@ if __name__ == '__main__':
 
     #Key exchange
     C = initialize_public_env()
-
-    a_ecc_instance = ECC_Instance(C)
+    a_ecc_instance = ECC_Instance(C,'a')
     a_ecc_instance.get_public_key()
 
-    b_ecc_instance = ECC_Instance(C)
+    b_ecc_instance = ECC_Instance(C,'b')
     b_ecc_instance.get_public_key()
 
     a_ecc_instance.generate_shared_key(b_ecc_instance.get_public_key())
