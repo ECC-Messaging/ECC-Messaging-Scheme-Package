@@ -7,7 +7,7 @@ export class ECC_Instance{
   name: string
   priv_key: number
   pub_key:string
-  shared_key:string
+  shared_key:ecc_math.ModPoint
 
   constructor(C: ecc_math.Curve, G: ecc_math.ModPoint, name: string) {
     this.C = C;

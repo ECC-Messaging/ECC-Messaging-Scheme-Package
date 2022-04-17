@@ -2,6 +2,9 @@
 import * as ecc_math from 'simple-js-ec-math';
 import { ECC_Instance } from "./ECC";
 import * as ed from "./encrypt_decrypt";
+declare function require(name:string);
+var AES = require('aes-js');
+let { encodeInto } = require('bigint-serialiser');
 
 function initialize_public_env() {
   //Setup Curve secp256k1
@@ -18,6 +21,7 @@ function initialize_public_env() {
 
     return [secp256k1,g]
 }
+
 
 
 //Run main
@@ -38,16 +42,44 @@ a_ecc_instance.generate_shared_key(b_ecc_instance.get_public_key())
 b_ecc_instance.generate_shared_key(a_ecc_instance.get_public_key())
 
 console.log(JSON.stringify(a_ecc_instance.get_shared_key())==JSON.stringify(b_ecc_instance.get_shared_key()))
+console.log(a_ecc_instance.get_shared_key())
 
+let plaintext = 'test 1232'
+//let key= 2214985505730300089862508788166253079397673264944195698864n
+let key = a_ecc_instance.get_shared_key()['x']
+
+let cipherText = ed.encrypt(key,plaintext)
+let decpyrtedText = ed.decyrpt(key,cipherText)
+
+console.log(cipherText)
+console.log(decpyrtedText)
 
 //
-// import {ECBEncryptor} from 'aes-ts';
+// let textBytes = AES.utils.utf8.toBytes(plaintext);
+// let key= 2214985505730300089862508788166253079397673264944195698864n
 //
-// let encryptor = new ECBEncryptor(a_ecc_instance.get_shared_key())
-// const ciphertext = encryptor.encrypt(plaintext)
+// let bytes = new Uint8Array(32); // [ 0, 0, 0, 0, 0 ]
+// let followingOffset = encodeInto(a, bytes); // 4
+//
+// //
+// // let utf8Encode = new TextEncoder();
+// // var u8array = new Uint8Array(24);
+// // utf8Encode.encodeInto(a,u8array)
+//
+// let aesCbc = new AES.ModeOfOperation.ctr(bytes, new AES.Counter(5));
+//
+// let encryptedBytes = aesCbc.encrypt(textBytes);
+// let encryptedHex = AES.utils.hex.fromBytes(encryptedBytes);
+// console.log(encryptedHex);
 //
 //
-// //Share messages
-// let plain_text = 'test 1232'
-// let ciphertext = ed.encrypt(a_ecc_instance.get_shared_key(),plain_text)
-// console.log(ciphertext)
+// var encryptedBytesIn = AES.utils.hex.toBytes(encryptedHex);
+//
+// // The counter mode of operation maintains internal state, so to
+// // decrypt a new instance must be instantiated.
+// var aesCtr = new AES.ModeOfOperation.ctr(bytes, new AES.Counter(5));
+// var decryptedBytes = aesCtr.decrypt(encryptedBytesIn);
+//
+// // Convert our bytes back into text
+// var decryptedText = AES.utils.utf8.fromBytes(decryptedBytes);
+// console.log(decryptedText);
