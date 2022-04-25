@@ -15,7 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/ECC-Messaging/ECC-Messaging-Scheme-Package.git"
   },
-  "author": "",
+  "author": " Vibhavi Peiris <https://github.com/vibe95> & Joe Conwell <https://github.com/jmc529>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ECC-Messaging/ECC-Messaging-Scheme-Package/issues"
