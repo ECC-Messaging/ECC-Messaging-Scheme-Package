@@ -1,71 +1,64 @@
-import * as ecc_math from 'simple-js-ec-math';
-import Cookies from 'js-cookie'
+import * as ecc_math from "simple-js-ec-math";
+import Cookies from "js-cookie";
 
-export class ECC_Instance{
-  C: ecc_math.Curve
-  G: ecc_math.ModPoint
-  name: string
-  priv_key: number
-  pub_key:string
-  shared_key:ecc_math.ModPoint
+export class ECCInstance {
+  C: ecc_math.Curve;
+  G: ecc_math.ModPoint;
+  name: string;
+  privateKey: number;
+  publicKey: string;
+  sharedKey: ecc_math.ModPoint;
 
   constructor(C: ecc_math.Curve, G: ecc_math.ModPoint, name: string) {
     this.C = C;
     this.G = G;
     this.name = name;
-    this.load_public_key();
+    this.loadPublicKey();
   }
 
-  generate_private_key(): void{
+  generatePrivateKey(): void {
     let min = 1;
     let max = 100;
 
-    this.priv_key = Math.floor(Math.random() * (max - min + 1) + min);
+    this.privateKey = Math.floor(Math.random() * (max - min + 1) + min);
 
     //ALTERNATE OPTION
     // localStorage.setItem("lastname", "Smith");
-    // // Retrieve
     // console.log(localStorage.getItem("lastname"));
-    if (Cookies.get('priv_key_'+this.name) == undefined){
-      Cookies.set('priv_key_'+this.name, this.priv_key, { expires: 365 })
+    if (Cookies.get("privateKey_" + this.name) == undefined) {
+      Cookies.set("privateKey_" + this.name, this.privateKey, { expires: 365 });
     }
   }
 
-  load_public_key(): void{
-    console.log('1')
-    if (Cookies.get('priv_key_'+this.name) == undefined){
-      console.log('2')
-      this.generate_private_key()
+  loadPublicKey(): void {
+    if (Cookies.get("privateKey_" + this.name) == undefined) {
+      this.generatePrivateKey();
+    } else {
+      this.privateKey = +Cookies.get("privateKey_" + this.name);
     }
-    else{
-      this.priv_key = +Cookies.get('priv_key_'+this.name)
-      console.log('3')
-    }
-    this.pub_key = this.C.multiply(this.G, this.priv_key)
-
+    this.publicKey = this.C.multiply(this.G, this.privateKey);
   }
 
-  generate_shared_key(other_pub_key:string): void{
-    this.shared_key = this.C.multiply(other_pub_key,this.priv_key)
+  generateSharedKey(othlicKPublicKey: string): void {
+    this.sharedKey = this.C.multiply(othlicKPublicKey, this.privateKey);
   }
 
-  get_public_key(): string{
-    return this.pub_key;
+  getPublicKey(): string {
+    return this.publicKey;
   }
-  get_shared_key(): string{
-    return this.shared_key;
+  getSharedKey(): string {
+    return this.sharedKey;
   }
 
-  get_name(){
+  getName() {
     return this.name;
   }
 
-  get_priv(){
-    return this.priv_key;
+  getPrivateKey() {
+    return this.privateKey;
   }
 
-  clear_keys(){
-    Cookies.remove('priv_key_'+this.name)
+  clearKeys() {
+    Cookies.remove("privateKey_" + this.name);
   }
-
 }
