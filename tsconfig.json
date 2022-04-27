@@ -5,10 +5,7 @@
     "target": "esnext",
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "dist",
-    "types": ["node"]
+    "outDir": "dist"
   },
-  "lib": [
-    "es2020", "esnext"
-  ]
+  "lib": ["es2020", "esnext"]
 }
