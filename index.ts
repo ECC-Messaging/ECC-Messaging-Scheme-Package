@@ -20,13 +20,11 @@ function initializePublicEnv() {
 }
 
 export default class ECCM {
-  C: ecc_math.Curve;
-  g: ecc_math.ModPoint;
   ECC: ECCInstance;
 
   constructor(id: string) {
-    [this.C, this.g] = initializePublicEnv();
-    this.ECC = new ECCInstance(this.C, this.g, id);
+    let [C, g] = initializePublicEnv();
+    this.ECC = new ECCInstance(C, g, id);
 
     this.ECC.clearKeys();
   }
