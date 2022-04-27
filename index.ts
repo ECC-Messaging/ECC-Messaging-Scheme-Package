@@ -25,8 +25,6 @@ export default class ECCM {
   constructor(id: string) {
     let [C, g] = initializePublicEnv();
     this.ECC = new ECCInstance(C, g, id);
-
-    this.ECC.clearKeys();
   }
 
   generateSharedKey(recipient: ECCInstance) {
