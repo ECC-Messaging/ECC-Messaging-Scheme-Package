@@ -27,8 +27,8 @@ export default class ECCM {
     this.ECC = new ECCInstance(C, g, id);
   }
 
-  generateSharedKey(recipient: ECCInstance) {
-    this.ECC.generateSharedKey(recipient.getPublicKey());
+  generateSharedKey(recipientPubKey: string) {
+    this.ECC.generateSharedKey(recipientPubKey);
   }
 
   encrypt(plaintext: string) {

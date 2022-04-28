@@ -46,6 +46,7 @@ export class ECCInstance {
   getPublicKey(): string {
     return this.publicKey;
   }
+
   getSharedKey(): string {
     return this.sharedKey;
   }
