@@ -18,7 +18,7 @@ export class ECCInstance {
 
   generatePrivateKey(): void {
     let min = 1;
-    let max = 100;
+    let max = 1000;
 
     this.privateKey = Math.floor(Math.random() * (max - min + 1) + min);
 
@@ -34,13 +34,13 @@ export class ECCInstance {
     if (Cookies.get("privateKey_" + this.name) == undefined) {
       this.generatePrivateKey();
     } else {
-      this.privateKey = +Cookies.get("privateKey_" + this.name);
+      this.privateKey = Cookies.get("privateKey_" + this.name);
     }
     this.publicKey = this.C.multiply(this.G, this.privateKey);
   }
 
-  generateSharedKey(othlicKPublicKey: string): void {
-    this.sharedKey = this.C.multiply(othlicKPublicKey, this.privateKey);
+  generateSharedKey(publicKey: string): void {
+    this.sharedKey = this.C.multiply(publicKey, this.privateKey);
   }
 
   getPublicKey(): string {
