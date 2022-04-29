@@ -20,7 +20,7 @@ export class ECCInstance {
     let min = 1;
     let max = 1000;
 
-    this.privateKey = Math.floor(Math.random() * (max - min + 1) + min);
+    this.privateKey = 378;
 
     //ALTERNATE OPTION
     // localStorage.setItem("lastname", "Smith");
@@ -34,7 +34,7 @@ export class ECCInstance {
     if (Cookies.get("privateKey_" + this.name) == undefined) {
       this.generatePrivateKey();
     } else {
-      this.privateKey = Cookies.get("privateKey_" + this.name);
+      this.privateKey =+ Cookies.get("privateKey_" + this.name);
     }
     this.publicKey = this.C.multiply(this.G, this.privateKey);
   }
