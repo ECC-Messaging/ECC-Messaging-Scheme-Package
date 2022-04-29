@@ -1,13 +1,13 @@
 {
   "name": "ecc-messaging-scheme-package",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --exec npx ts-node index.ts",
     "tsc": "tsc",
-    "publish": "npm run tsc && npm publish"
+    "pub": "npm run tsc && npm publish"
   },
   "repository": {
     "type": "git",
