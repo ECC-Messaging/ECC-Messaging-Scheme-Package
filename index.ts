@@ -40,7 +40,7 @@ export default class ECCM {
     const KEY = this.ECC.getSharedKey()["x"];
     return ed.decrypt(KEY, ciphertext);
   }
-  decrypt_w_key(key:string, ciphertext: string) {
+  decryptWKey(key:string, ciphertext: string) {
     return ed.decrypt(key, ciphertext);
   }
 }
